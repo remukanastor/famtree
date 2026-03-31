@@ -1,53 +1,54 @@
 const profileCard = document.getElementById("profileCard");
 
 fetch("data/family.json")
-.then(res => res.json())
-.then(json => {
+  .then(res => res.json())
+  .then(json => {
 
-  const data = json.members;
+    const tree = new FamilyTree(
+      document.getElementById("tree"),
+      {
+        mouseScrool: FamilyTree.action.zoom,
 
-  const tree = new FamilyTree(document.getElementById("tree"), {
+        nodeBinding: {
+          field_0: "name",
+          img_0: "photo"
+        },
 
-    mouseScrool: FamilyTree.action.zoom,
+        nodeMouseClick: FamilyTree.action.none
+      }
+    );
 
-    nodeBinding: {
-      field_0: "name",
-      img_0: "photo"
-    },
+    tree.load(json.members);
 
-    nodeMouseClick: FamilyTree.action.none
-  });
+    // ✅ CLICK EVENT FIX
+    tree.on("click", function(sender, args) {
 
-  tree.load(data);
+      const person = args.node.data;
 
-  tree.on('click', function(sender, args){
+      if (!person) return;
 
-    const person = args.node;
+      document.getElementById("profileName").innerText =
+        person.name || "-";
 
-    document.getElementById("profileName").innerText =
-      person.name || "-";
+      document.getElementById("profilePhoto").src =
+        person.photo || "";
 
-    document.getElementById("profilePhoto").src =
-      person.photo || "";
+      document.getElementById("profileInfo").innerText =
+        `Tahun Lahir: ${person.birth || "-"}\n${person.bio || ""}`;
 
-    document.getElementById("profileInfo").innerText =
-      `Tahun Lahir: ${person.birth || '-'}\n${person.bio || ''}`;
+      profileCard.classList.remove("hidden");
+    });
 
-    profileCard.classList.remove("hidden");
-  });
-
-})
-.catch(err => console.error("DATA ERROR:", err));
+  })
+  .catch(err => console.error("LOAD ERROR:", err));
 
 
-// ✅ SAFE BUTTON INIT
-window.addEventListener("DOMContentLoaded", () => {
-
+// CLOSE BUTTON SAFE
+window.onload = () => {
   const closeBtn = document.getElementById("closeBtn");
 
   if (closeBtn) {
     closeBtn.onclick = () =>
       profileCard.classList.add("hidden");
   }
-
-});
+};
