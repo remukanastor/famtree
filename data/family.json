@@ -1,1 +1,25 @@
-
+{
+  "members": [
+    {
+      "id": 1,
+      "name": "Ahmad",
+      "photo": "/assets/photos/ahmad.jpg",
+      "birth": "1945",
+      "bio": "Pendiri keluarga"
+    },
+    {
+      "id": 2,
+      "name": "Siti",
+      "photo": "/assets/photos/siti.jpg"
+    },
+    {
+      "id": 3,
+      "name": "Budi",
+      "fid": 1,
+      "mid": 2,
+      "photo": "/assets/photos/budi.jpg",
+      "birth": "1975",
+      "bio": "Anak pertama"
+    }
+  ]
+}
