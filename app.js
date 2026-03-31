@@ -24,15 +24,30 @@ fetch("data/family.json")
 
     const person = args.node;
 
-    document.getElementById("profileName").innerText = person.name;
-    document.getElementById("profilePhoto").src = person.photo || "";
+    document.getElementById("profileName").innerText =
+      person.name || "-";
+
+    document.getElementById("profilePhoto").src =
+      person.photo || "";
+
     document.getElementById("profileInfo").innerText =
       `Tahun Lahir: ${person.birth || '-'}\n${person.bio || ''}`;
 
     profileCard.classList.remove("hidden");
   });
 
-});
+})
+.catch(err => console.error("DATA ERROR:", err));
 
-document.getElementById("closeBtn").onclick = () =>
-  profileCard.classList.add("hidden");
+
+// ✅ SAFE BUTTON INIT
+window.addEventListener("DOMContentLoaded", () => {
+
+  const closeBtn = document.getElementById("closeBtn");
+
+  if (closeBtn) {
+    closeBtn.onclick = () =>
+      profileCard.classList.add("hidden");
+  }
+
+});
