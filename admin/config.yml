@@ -1,0 +1,27 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "assets/photos"
+public_folder: "/assets/photos"
+
+collections:
+  - name: "family"
+    label: "Anggota Keluarga"
+    files:
+      - file: "data/family.json"
+        label: "Data Keluarga"
+        name: "familydata"
+        format: "json"
+        fields:
+          - label: "Members"
+            name: "members"
+            widget: "list"
+            fields:
+              - { label: "ID", name: "id", widget: "number" }
+              - { label: "Nama", name: "name", widget: "string" }
+              - { label: "Foto", name: "photo", widget: "image", required: false }
+              - { label: "Ayah ID", name: "fid", widget: "number", required: false }
+              - { label: "Ibu ID", name: "mid", widget: "number", required: false }
+              - { label: "Tahun Lahir", name: "birth", widget: "string", required: false }
+              - { label: "Bio", name: "bio", widget: "text", required: false }
